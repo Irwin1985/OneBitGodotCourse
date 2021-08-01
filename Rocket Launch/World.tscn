@@ -1,0 +1,62 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://World.gd" type="Script" id=1]
+[ext_resource path="res://Rocket Launch Resources/RocketShip.png" type="Texture" id=2]
+[ext_resource path="res://Rocket Launch Resources/LaunchButton.png" type="Texture" id=3]
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends Sprite
+
+func _ready():
+	print(\"Hello world\")
+"
+
+[sub_resource type="Animation" id=1]
+resource_name = "Lauch"
+tracks/0/type = "value"
+tracks/0/path = NodePath("RocketShip:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 640, 620 ), Vector2( 640, -112 ) ]
+}
+
+[node name="World" type="Node"]
+script = ExtResource( 1 )
+__meta__ = {
+"_editor_description_": "Este es el nodo base que me sirve de Nivel para el primer proyecto."
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RocketShip" type="Sprite" parent="."]
+position = Vector2( 640, 620 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 2 )
+script = SubResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Lauch = SubResource( 1 )
+
+[node name="LaunchButton" type="TextureButton" parent="."]
+margin_left = 1122.0
+margin_top = 669.0
+margin_right = 1170.0
+margin_bottom = 685.0
+rect_scale = Vector2( 2, 2 )
+texture_normal = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="LaunchButton" to="." method="_on_LaunchButton_pressed"]
